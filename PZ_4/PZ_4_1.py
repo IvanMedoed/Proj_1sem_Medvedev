@@ -5,7 +5,7 @@ while type(n) != int: #обработка исключений
     try:
         n = int(n)
     except ValueError:
-        print("Неправильно ввели")
+        print("Неправильно ввели ")
         n = input("Введите число => ")
 f=1
 i=1
