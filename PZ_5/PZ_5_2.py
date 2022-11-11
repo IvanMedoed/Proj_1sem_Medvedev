@@ -3,9 +3,18 @@
 
 
 def PowerA3(A): #Функция PowerA3 возводит в третью степень
-    return A*A*A # Возвращает значение
+    while type(A) != float:  # Обработка исключений
+        try:
+            A = float(A)
+        except ValueError:
+            print('Неправильно ввели!')
+            A = input('Введите число =>')
+    B = A * A * A
+    print(B)
+    return B # возвращает переменную B
 i = 0
 while i < 5: # Запуск цикла ввода числа в третью степень пять раз
     i += 1
-    B = PowerA3(float(input('Введите число А =>')))
-    print(B)
+    PowerA3(input('Введите число =>'))
+
+
