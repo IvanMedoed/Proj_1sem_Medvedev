@@ -2,7 +2,7 @@
 # разности) и вывести эти номера в порядке возрастания
 import random
 
-N = int(input('Введите размер списка  =>'))
+N = int(input('Введите размер списка  => '))
 a = [random.randrange(1,100) for i in range(N)]
 
 print('Spisok', a)
