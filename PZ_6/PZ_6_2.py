@@ -3,7 +3,7 @@
 import random
 
 N = int(input('Введите размер списка  => '))
-a = [random.randrange(1,100) for i in range(N)]
+a = [random.randrange(1, 100) for i in range(N)]
 
 
 o_min = abs(a[0] - a[1]) # модуль разности нулевого и первого индекса
@@ -16,7 +16,7 @@ for i in range(0, N-1):
       o_min = b_tmp
       i_min = i
       j_min = j
-print('Номера элементов с наименьшем модулем разности:',i_min, ',', j_min)
+print('Номера элементов с наименьшем модулем разности:', i_min, ',', j_min)
 
 
 
