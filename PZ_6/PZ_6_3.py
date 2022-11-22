@@ -7,7 +7,7 @@ while type(K) != int: # обработка исключений
     try:
         K = int(K)
     except ValueError:
-        print('Неправильное значение')
+        print('Неправильное значение ')
         K = input('Введите число K =>')
 
 N= int(input('Введите размер списка N =>'))
