@@ -2,9 +2,15 @@
 # разности) и вывести эти номера в порядке возрастания
 import random
 
-N = int(input('Введите размер списка  => '))
-a = [random.randrange(1, 100) for i in range(N)]
+N = input('Введите размер списка  => ')
+while type(N) != int: # обработка исключений
+    try:
+        N = int(N)
+    except ValueError:
+        print('Неправильное значение ')
+        N = input('Введите число N =>')
 
+a = [random.randrange(1, 100) for i in range(N)]
 
 o_min = abs(a[0] - a[1]) # модуль разности нулевого и первого индекса
 i_min = 0
