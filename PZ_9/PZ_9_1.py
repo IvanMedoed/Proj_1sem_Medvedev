@@ -4,7 +4,7 @@ ages = {"Андрей": 32, "Виктор": 29, "Максим":18, "Егор": 2
 c = 0
 sum = 0
 for key in ages:
-  c += 1
-  sum += ages[key]
+  c += 1 # счетчик
+  sum += ages[key] # сумма значений всех ключей
 sred = sum/c
 print('Средний возраст ', round(sred,2))
