@@ -22,6 +22,6 @@ if(c > b > a):
 else:
     a = -a
     b = -b
-    c=  -c
+    c = s-c
 print(a, b, c)
 
