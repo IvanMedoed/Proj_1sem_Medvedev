@@ -28,7 +28,7 @@ p = f3.read()
 p = p.split()
 print(type(p))
 c = math.prod([p])
-print('Произведение элементов:  ', c)
+print('Произведение элементов  ', c)
 f3.close()
 
 f4 = open('data_4.txt', 'a')
