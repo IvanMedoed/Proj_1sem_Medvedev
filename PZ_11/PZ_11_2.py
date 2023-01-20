@@ -13,7 +13,8 @@ print(end='\n')
 print('Количество знаков препинания:  ', d, end='\n')
 f1 = open('text18-17.txt', encoding='UTF-16')
 l = f1.readlines()
-l[1] = l[6]
+l[6] = 'Не отдали б Москвы!\n'
+l.insert(1, l[6])
 print(end='\n')
 f1.close()
 
