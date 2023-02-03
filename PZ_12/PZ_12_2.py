@@ -2,7 +2,7 @@
 
 def strToUp(crs: str):
     for ch in crs:
-        yield ch.upper()
+        yield ch.lower()
 
 uses_str = input('Вставьте текст => ')
 print(''.join(strToUp(uses_str)))
