@@ -5,10 +5,10 @@ import random
 mat = [[], []]
 c = 0
 for i in range(0, random.randint(3, 35)):
-    mat[0].append(random.randint(0, 39))
+    x = mat[0].append(random.randint(0, 39))
     y = random.randint(0,39)
     print(y)
-    b = reduce(lambda x,y: x + y, mat[0])
+    b = reduce(lambda x,y: x + y, mat)
     mat[1].append(b)
 
 print(mat)
