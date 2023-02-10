@@ -1,14 +1,15 @@
 #Сгенерировать матрицу на произвольное количество элементов, в которой задается преобразование от предыдущего элемента
 # к следующему на произвольное значение
-from functools import reduce
 import random
 mat = [[], []]
-c = 0
+y = []
 for i in range(0, random.randint(3, 35)):
-    x = mat[0].append(random.randint(0, 39))
-    y = random.randint(0,39)
-    print(y)
-    b = reduce(lambda x,y: x + y, mat)
-    mat[1].append(b)
-
+    mat[0].append(random.randint(0, 35))
+    y.append(random.randint(0, 35))
+    c = map(sum, zip(mat[0], y))
+mat[1].append(list(c))
+print(y)
+print(mat[0])
 print(mat)
+
+
