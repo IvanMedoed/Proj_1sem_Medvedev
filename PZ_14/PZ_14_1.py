@@ -17,11 +17,20 @@ print(data_new)
 
 def sumColumn(m):
     years = []
-    for column in range(len(m[0])):
+    months = []
+    for column in range(len(m)):
         t = 0
         for row in m:
             t += row[column]
         years.append(t)
         return years
+
+    for column in range(len(m)):
+        t = 0
+        for row in m:
+            t += row[column]
+        months.append(t)
+        return
+    months
 
 print(sumColumn(data_new))
