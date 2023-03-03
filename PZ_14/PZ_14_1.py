@@ -1,36 +1,26 @@
 #Из исходного текстового файла (experience.txt) выбрать стаж работы. Посчитать количество полученных элементов
 
 import re
-import numpy as np
+
 file = open('experience.txt')
 values = file.read().split("\n")
 data = []
 for key in values:
-    value = re.findall(r"[-+]?\.\d+|\d+", key)
+    value = re.findall(r"[-+]?\.\d+|\d+", key) # получаем все возможные цифры с текствого файла
     if value != []:
         data.append(value)
 
-print(data)
-data_new = [list(map(int, x)) for x in data]
+data_new = [list(map(int, x)) for x in data] #переводим матрицу в тип инт
 data_new[8].append(0)
-print(data_new)
+print(data_new) #матрица исходных данных стажа работы
 
-def sumColumn(m):
-    years = []
-    months = []
-    for column in range(len(m)):
-        t = 0
-        for row in m:
-            t += row[column]
-        years.append(t)
-        return years
+month = 0
+year = 0
+for i in data_new:
+    month += i[1]
+    year += i[0]
 
-    for column in range(len(m)):
-        t = 0
-        for row in m:
-            t += row[column]
-        months.append(t)
-        return
-    months
+print(f'Стаж работы: {year} лет, {month} месяцев')
 
-print(sumColumn(data_new))
+
+
