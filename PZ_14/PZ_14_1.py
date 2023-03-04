@@ -11,6 +11,7 @@ for key in values:
 def changing(matrix):   #изменяем матрицу в массив, чтобы получить точное кол-во всех элементов
     arr = [elem for el in matrix for elem in el]
     print(len(arr))
+
 print(data)
 changing(f'Всего элементов: {data}')
 
