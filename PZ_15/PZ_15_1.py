@@ -28,6 +28,10 @@ cur.execute("""
     paidf BOOLEAN,
     FOREIGN KEY(id_workers) REFERENCES anketa(id) 
     )""")
+
+cur.execute("INSERT INTO anketa VALUES(1, 'Иван', 'Медведев', '08.04.2005', 'мужской', '22.02.2023', 'Программист', 'IT', '100000')")
+
+cur.execute("INSERT INTO lists VALUES('100', '1', '12.03.2023', '19.03.2023', 'болезнь', 'простуда', 'YES')")
 con.commit()
 
 con.close()
