@@ -54,7 +54,6 @@ cur.execute("INSERT INTO lists VALUES('109', '8', '01.01.2020', '9.01.2020', 'б
 cur.execute("INSERT INTO lists VALUES('110', '9', '04.02.2021', '12.02.2021', 'болезнь', 'туберкулез', 'YES')")
 
 
-
 cur.execute("SELECT name, last_name , post  from anketa")
 for result in cur:
     print(result)
