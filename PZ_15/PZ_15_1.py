@@ -83,6 +83,7 @@ print('\n')
 '''for i in cur.execute("SELECT id_workers from lists where data_start >= '2023-03-01' and data_start <= '2023-03-31'"):
     print(i)'''
 print('\n')
+
 #Задание 8
 for i in cur.execute("SELECT AVG(basic_rate) from anketa"):
     print(i)
