@@ -79,6 +79,7 @@ print('\n')
 for res in cur.execute("SELECT * from lists where paidf='YES'"):
     print(res)
 print('\n')
+
 #Задание 7
 '''for i in cur.execute("SELECT id_workers from lists where data_start >= '2023-03-01' and data_start <= '2023-03-31'"):
     print(i)'''
