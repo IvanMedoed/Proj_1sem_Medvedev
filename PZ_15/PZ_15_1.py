@@ -1,6 +1,6 @@
 import sqlite3 as sq
 
-con = sq.connect('zarplata_upd.db')
+con = sq.connect('zarplata.db')
 cur = con.cursor()
 
 cur.execute("""
@@ -29,6 +29,7 @@ cur.execute("""
     FOREIGN KEY(id_workers) REFERENCES anketa(id) 
     )""")
 
+ #Чтобы проверить, что бд правильно создается удалите файл zarplata.db
 '''
 cur.execute("INSERT INTO anketa VALUES(1, 'Иван', 'Медведев', '2005-08-04', 'мужской', '2023-03-22', 'Программист', 'IT', '100000')")
 cur.execute("INSERT INTO anketa VALUES(2, 'Михаил', 'Петров', '1990-03-06', 'мужской', '2020-06-19', 'Менеджер', 'Отдел продаж', '73000')")
@@ -82,8 +83,8 @@ for res in cur.execute("SELECT * from lists where paidf='YES'"):
 print('\n')
 
 #Задание 7
-'''for i in cur.execute("SELECT id_workers from lists where data_start >= '2023-03-01' and data_start <= '2023-03-31'"):
-    print(i)'''
+for i in cur.execute("SELECT id_workers from lists where data_start > '2023-03-01' and data_start < '2023-03-31'"):
+    print(i)
 print('\n')
 
 #Задание 8
@@ -108,22 +109,57 @@ for i in cur.execute("SELECT name, last_name, data_start, data_end from anketa, 
 #Задание 15
 
 
+con.commit()
+con.close()
 
 # SQL-Запросы на обновление данных
 #Результаты смотреть в zarplata_upd.db
+con2 = sq.connect('zarplata_upd.db')
+cur2 = con2.cursor()
 #Задача 1
-cur.execute("UPDATE anketa SET basic_rate='72325' WHERE basic_rate='68000'")
+cur2.execute("UPDATE anketa SET basic_rate='72325' WHERE basic_rate='68000'")
 #Задача 2
-cur.execute("UPDATE anketa SET departament='Отдел кадров' WHERE data_birthday <= '1990-01-01'")
+cur2.execute("UPDATE anketa SET departament='Отдел кадров' WHERE data_birthday <= '1990-01-01'")
 #Задача 3
-cur.execute("UPDATE anketa SET date_hiring='2023-04-22' WHERE id='1' ")
+cur2.execute("UPDATE anketa SET date_hiring='2023-04-22' WHERE id='1' ")
 #Задача 4
-cur.execute("UPDATE lists SET reason='операция' WHERE id_workers='9' ")
+cur2.execute("UPDATE lists SET reason='операция' WHERE id_workers='9' ")
+
 #Задача 5
 #cur.execute("UPDATE lists SET reason='операция' WHERE id_workers='9' ")
 #Задача 6
 #Задача 7 Отдел бухгалтерия заменено на занимающий пост Бухгалтер
-cur.execute("UPDATE lists  SET reason='ЗНАЧЕНИЕ' WHERE anketa.post = 'Бухгалтер' ")
-con.commit()
-con.close()
+#cur.execute("UPDATE lists  INNER JOIN  anketa  ON anketa.id = lists.id_workers SET reason='обед' WHERE post = 'Бухгалтер'")
+con2.commit()
+con2.close()
 
+
+
+#Запросы на  удаление данных MYSQL(результаты смотреть в zarplata_del.db
+'''
+con1 = sq.connect('zarplata_del.db')
+cur1 = con1.cursor()
+
+#Задача 1
+cur1.execute("DELETE FROM anketa WHERE name='Иван'")
+
+#Задача 2
+cur1.execute("DELETE FROM anketa WHERE last_name='Петров'")
+
+#Задача 3
+cur1.execute("DELETE FROM anketa WHERE post='Менеджер'")
+
+#Задача 4
+cur1.execute("DELETE FROM anketa WHERE departament='Отдел кадров'")
+
+#Задача 5
+cur1.execute("DELETE FROM anketa WHERE sex='женский'")
+
+#Задача 6
+cur1.execute("DELETE FROM anketa where data_birthday > '1973-01-01'")
+
+#Задача 7
+
+con1.commit()
+con1.close()
+'''
