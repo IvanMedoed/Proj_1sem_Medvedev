@@ -136,7 +136,7 @@ con2.close()
 
 
 #Запросы на  удаление данных MYSQL(результаты смотреть в zarplata_del.db
-'''
+
 con1 = sq.connect('zarplata_del.db')
 cur1 = con1.cursor()
 
@@ -156,10 +156,9 @@ cur1.execute("DELETE FROM anketa WHERE departament='Отдел кадров'")
 cur1.execute("DELETE FROM anketa WHERE sex='женский'")
 
 #Задача 6
-cur1.execute("DELETE FROM anketa where data_birthday > '1973-01-01'")
+cur1.execute("DELETE FROM anketa where data_birthday >= '1973-01-01'")
 
 #Задача 7
 
 con1.commit()
 con1.close()
-'''
