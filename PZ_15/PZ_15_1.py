@@ -102,8 +102,12 @@ print('\n')
 #Задание 11 #Текущий месяц будет 07
 for i in cur.execute("SELECT name, last_name, reason, diagnosis, paidf from anketa,lists where anketa.id = lists.id_workers and data_start > '2023-07-01' and data_start < '2023-07-30'"):
     print(i)
-#Задание 12
-
+print('\n')
+#Задание 12 #В Python в библиотеке SQL нет функций для вычисления среднего кол-во дней,
+# поэтому в последующем будет показываться просто data_start и data_end
+# а так было бы AVG(DATEDIFF(data_start,data_end))
+for i in cur.execute("SELECT departament, data_start, data_end from anketa,lists where anketa.id = lists.id_workers"):
+    print(i)
 #Задание 13
 
 #Задание 14
