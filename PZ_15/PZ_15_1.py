@@ -169,6 +169,12 @@ cur1.execute("DELETE FROM anketa WHERE sex='женский'")
 cur1.execute("DELETE FROM anketa where data_birthday >= '1973-01-01'")
 
 #Задача 7
+cur1.execute("DELETE FROM lists where paidf='NO'")
+
+#Задача 8
+#Задача 9
+#Задача 10
+
 
 con1.commit()
 con1.close()
