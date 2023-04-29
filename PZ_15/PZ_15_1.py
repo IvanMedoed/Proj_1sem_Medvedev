@@ -83,7 +83,7 @@ for res in cur.execute("SELECT * from lists where paidf='YES'"):
 print('\n')
 
 #Задание 7
-for i in cur.execute("SELECT id_workers from lists where data_start > '2023-03-01' and data_start < '2023-03-31'"):
+for i in cur.execute("SELECT id,id_workers from lists where data_start > '2023-03-01' AND data_start < '2023-03-31'"):
     print(i)
 print('\n')
 
@@ -98,8 +98,10 @@ print('\n')
 #Задание 10
 for i in cur.execute("SELECT name, last_name, data_start, data_end from anketa, lists where anketa.id = lists.id_workers"):
     print(i)
-#Задание 11
-
+print('\n')
+#Задание 11 #Текущий месяц будет 07
+for i in cur.execute("SELECT name, last_name, reason, diagnosis, paidf from anketa,lists where anketa.id = lists.id_workers and data_start > '2023-07-01' and data_start < '2023-07-30'"):
+    print(i)
 #Задание 12
 
 #Задание 13
