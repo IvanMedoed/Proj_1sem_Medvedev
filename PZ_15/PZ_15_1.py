@@ -106,14 +106,16 @@ print('\n')
 #Задание 12 #В Python в библиотеке SQL нет функций для вычисления среднего кол-во дней,
 # поэтому в последующем будет показываться просто data_start и data_end
 # а так было бы AVG(DATEDIFF(data_start,data_end))
-for i in cur.execute("SELECT departament, data_start, data_end from anketa,lists where anketa.id = lists.id_workers"):
+for i in cur.execute("""SELECT departament, data_start, data_end from anketa,lists where anketa.id = lists.id_workers"""):
     print(i)
+print('\n')
 #Задание 13
 
 #Задание 14
 
 #Задание 15
-
+for i in cur.execute("SELECT name, last_name, data_start, data_end from anketa, lists where anketa.id = lists.id_workers and data_start > '2023-01-01' and data_start < '2023-12-31' and data_end> '2023-01-01' and data_end < '2023-12-31'"):
+    print(i)
 
 con.commit()
 con.close()
@@ -131,11 +133,13 @@ cur2.execute("UPDATE anketa SET date_hiring='2023-04-22' WHERE id='1' ")
 #Задача 4
 cur2.execute("UPDATE lists SET reason='операция' WHERE id_workers='9' ")
 
+
+#Библиотека SQLite не поддерживает INNERJOIN в UPDATE, поэтому это задание невозможно выполнить
 #Задача 5
 #cur.execute("UPDATE lists SET reason='операция' WHERE id_workers='9' ")
 #Задача 6
 #Задача 7 Отдел бухгалтерия заменено на занимающий пост Бухгалтер
-#cur.execute("UPDATE lists  INNER JOIN  anketa  ON anketa.id = lists.id_workers SET reason='обед' WHERE post = 'Бухгалтер'")
+#cur2.execute("UPDATE lists SET reason='обед' WHERE post = 'Бухгалтер' FROM lists AS a INNER JOIN anketa AS b ON a.id = b.id_workers")
 con2.commit()
 con2.close()
 
