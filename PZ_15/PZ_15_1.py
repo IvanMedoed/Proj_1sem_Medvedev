@@ -1,6 +1,6 @@
 import sqlite3 as sq
-
-con = sq.connect('zarplata_upd.db')
+from values import *
+con = sq.connect('zarplata.db')
 cur = con.cursor()
 
 cur.execute("""
@@ -29,32 +29,11 @@ cur.execute("""
     FOREIGN KEY(id_workers) REFERENCES anketa(id) 
     )""")
 
-'''
-cur.execute("INSERT INTO anketa VALUES(1, 'Иван', 'Медведев', '2005-08-04', 'мужской', '2023-03-22', 'Программист', 'IT', '100000')")
-cur.execute("INSERT INTO anketa VALUES(2, 'Михаил', 'Петров', '1990-03-06', 'мужской', '2020-06-19', 'Менеджер', 'Отдел продаж', '73000')")
-cur.execute("INSERT INTO anketa VALUES(3, 'Оксана', 'Селезнева', '1973-12-02', 'женский', '2019-04-12', 'Менеджер', 'Отдел кадров', '68000')")
-cur.execute("INSERT INTO anketa VALUES(4, 'Иван', 'Свешников', '1999-05-03', 'мужской', '2022-09-02', 'Программист', 'IT', '110000')")
-cur.execute("INSERT INTO anketa VALUES(5, 'Юрий', 'Кобелев', '1976-04-16', 'мужской', '2018-05-13', 'Директор', 'Агротехнический комлпекс', '150000')")
-cur.execute("INSERT INTO anketa VALUES(6, 'Евгений', 'Касьянов', '2002-07-13', 'мужской', '2023-03-17', 'Главный Бухгалтер', 'Агротехнический комлпекс', '90000')")
-cur.execute("INSERT INTO anketa VALUES(7, 'Макс', 'Зубков', '1999-01-13', 'мужской', '2023-09-12', 'Бухгалтер', 'Агротехнический комлпекс', '70000')")
-cur.execute("INSERT INTO anketa VALUES(8, 'Василиса', 'Романова', '1997-07-18', 'женский', '2018-05-18', 'Секретарша', 'Отдел кадров', '83000')")
-cur.execute("INSERT INTO anketa VALUES(9, 'Елизавета', 'Романова', '1996-04-23', 'женский', '2019-04-30', 'Бухгалтер', 'Отдел кадров', '86000')")
-cur.execute("INSERT INTO anketa VALUES(10, 'Виктория', 'Попова', '2000-11-22', 'женский', '2021-06-27', 'Программист', 'IT', '89000')")
+ #Чтобы проверить, что бд правильно создается удалите файл zarplata.db
 
 
-
-cur.execute("INSERT INTO lists VALUES('100', '1', '2023-03-12', '2023-03-19', 'болезнь', 'простуда', 'YES')")
-cur.execute("INSERT INTO lists VALUES('101', '1', '2023-07-14', '2023-07-16', 'болезнь', 'ОРВИ', 'NO')")
-cur.execute("INSERT INTO lists VALUES('102', '2', '2020-09-10', '2020-09-30', 'болезнь', 'простуда', 'YES')")
-cur.execute("INSERT INTO lists VALUES('103', '5', '2023-07-18', '2023-07-27', 'болезнь', 'COVID', 'YES')")
-cur.execute("INSERT INTO lists VALUES('104', '3', '2021-05-13', '2021-05-21', 'болезнь', 'ангина', 'YES')")
-cur.execute("INSERT INTO lists VALUES('105', '4', '2017-03-10', '2017-03-23', 'болезнь', 'простуда', 'NO')")
-cur.execute("INSERT INTO lists VALUES('106', '6', '2017-01-04', '2021-04-07', 'болезнь', 'тонзиллит', 'YES')")
-cur.execute("INSERT INTO lists VALUES('107', '7', '2023-08-03', '2023-08-11', 'болезнь', 'простуда', 'YES')")
-cur.execute("INSERT INTO lists VALUES('108', '8', '2019-12-05', '2019-12-10', 'болезнь', 'бронхит', 'YES')")
-cur.execute("INSERT INTO lists VALUES('109', '8', '2020-01-01', '2020-01-09', 'болезнь', 'простуда', 'NO')")
-cur.execute("INSERT INTO lists VALUES('110', '9', '2021-04-12', '2021-12-02', 'болезнь', 'туберкулез', 'YES')")
-'''
+#cur.executemany('INSERT INTO anketa VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', (data))
+#cur.executemany('INSERT INTO lists VALUES (?, ?, ?, ?, ?, ?, ?)', (lists))
 #SQL-Запросы на выборку данных
 #Задание 1
 for result in cur.execute("SELECT name, last_name , post  from anketa"):
@@ -82,8 +61,8 @@ for res in cur.execute("SELECT * from lists where paidf='YES'"):
 print('\n')
 
 #Задание 7
-'''for i in cur.execute("SELECT id_workers from lists where data_start >= '2023-03-01' and data_start <= '2023-03-31'"):
-    print(i)'''
+for i in cur.execute("SELECT id,id_workers from lists where data_start > '2023-03-01' AND data_start < '2023-03-31'"):
+    print(i)
 print('\n')
 
 #Задание 8
@@ -97,33 +76,88 @@ print('\n')
 #Задание 10
 for i in cur.execute("SELECT name, last_name, data_start, data_end from anketa, lists where anketa.id = lists.id_workers"):
     print(i)
-#Задание 11
-
-#Задание 12
-
+print('\n')
+#Задание 11 #Текущий месяц будет 07
+for i in cur.execute("SELECT name, last_name, reason, diagnosis, paidf from anketa,lists where anketa.id = lists.id_workers and data_start > '2023-07-01' and data_start < '2023-07-30'"):
+    print(i)
+print('\n')
+#Задание 12 #В Python в библиотеке SQL нет функций для вычисления среднего кол-во дней,
+# поэтому в последующем будет показываться просто data_start и data_end
+# а так было бы AVG(DATEDIFF(data_start,data_end))
+for i in cur.execute("""SELECT departament, data_start, data_end from anketa,lists where anketa.id = lists.id_workers"""):
+    print(i)
+print('\n')
 #Задание 13
 
 #Задание 14
 
 #Задание 15
+for i in cur.execute("SELECT name, last_name, data_start, data_end from anketa, lists where anketa.id = lists.id_workers and data_start > '2023-01-01' and data_start < '2023-12-31' and data_end> '2023-01-01' and data_end < '2023-12-31'"):
+    print(i)
 
-
+con.commit()
+con.close()
 
 # SQL-Запросы на обновление данных
 #Результаты смотреть в zarplata_upd.db
+con2 = sq.connect('zarplata_upd.db')
+cur2 = con2.cursor()
 #Задача 1
-cur.execute("UPDATE anketa SET basic_rate='72325' WHERE basic_rate='68000'")
+cur2.execute("UPDATE anketa SET basic_rate='72325' WHERE basic_rate='68000'")
 #Задача 2
-cur.execute("UPDATE anketa SET departament='Отдел кадров' WHERE data_birthday <= '1990-01-01'")
+cur2.execute("UPDATE anketa SET departament='Отдел кадров' WHERE data_birthday <= '1990-01-01'")
 #Задача 3
-cur.execute("UPDATE anketa SET date_hiring='2023-04-22' WHERE id='1' ")
+cur2.execute("UPDATE anketa SET date_hiring='2023-04-22' WHERE id='1' ")
 #Задача 4
-cur.execute("UPDATE lists SET reason='операция' WHERE id_workers='9' ")
+cur2.execute("UPDATE lists SET reason='операция' WHERE id_workers='9' ")
+
+
+#Библиотека SQLite не поддерживает INNERJOIN в UPDATE, поэтому это задание невозможно выполнить
 #Задача 5
 #cur.execute("UPDATE lists SET reason='операция' WHERE id_workers='9' ")
 #Задача 6
 #Задача 7 Отдел бухгалтерия заменено на занимающий пост Бухгалтер
-cur.execute("UPDATE lists  SET reason='ЗНАЧЕНИЕ' WHERE anketa.post = 'Бухгалтер' ")
-con.commit()
-con.close()
+#cur2.execute("UPDATE lists SET reason='обед' WHERE post = 'Бухгалтер' FROM lists AS a INNER JOIN anketa AS b ON a.id = b.id_workers")
+con2.commit()
+con2.close()
 
+
+
+#Запросы на  удаление данных MYSQL(результаты смотреть в zarplata_del.db
+
+con1 = sq.connect('zarplata_del.db')
+cur1 = con1.cursor()
+
+#Задача 1
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT DISTINCT id FROM anketa WHERE name = "Иван")')
+
+#Задача 2
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT DISTINCT id FROM anketa WHERE last_name = "Петров")')
+
+#Задача 3
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT id FROM anketa WHERE post = "Менеджер")')
+#Задача  4
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT id FROM anketa WHERE departament = "Отдел продаж")')
+#Задача 5
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT id FROM anketa WHERE sex = "женский")')
+#Задача 6
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT id FROM anketa WHERE data_birthday > "1973-01-01")')
+#Задача 7
+cur1.execute('DELETE FROM lists WHERE  paidf = "NO"')
+#Задача 8
+cur1.execute('DELETE FROM lists WHERE  data_start < "2023-01-01"')
+#9
+cur1.execute('DELETE FROM lists WHERE  data_start > "2022-07-07"')
+#10
+cur1.execute('DELETE FROM lists WHERE  data_end > "2022-07-07"')
+#12
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT id FROM anketa WHERE last_name LIKE "С%")')
+
+#13
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT id FROM anketa WHERE post = "Менеджер" AND paidf = "NO")')
+
+#14
+cur1.execute('DELETE FROM lists WHERE id_workers = (SELECT id FROM anketa WHERE departament = "IT" AND data_end > "2023-01-01")')
+
+con1.commit()
+con1.close()
